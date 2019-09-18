@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/screens/signup_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class SignupScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Entrar"),
+        title: Text("Criar Conta"),
         centerTitle: true,
-        actions: <Widget>[
-          FlatButton(
-            onPressed: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => SignupScreen()));
-            },
-            child: Text("CRIAR CONTA", style: TextStyle(fontSize: 15.0)),
-            textColor: Colors.white,
-          ),
-        ],
       ),
       body: Form(
         key: _formKey,
         child: ListView(
           padding: EdgeInsets.all(16.0),
           children: <Widget>[
+            TextFormField(
+              decoration: InputDecoration(
+                hintText: "Nome Completo",
+              ),
+              validator: (text) {
+                if (text.isEmpty || text.length < 6) return "Nome inválido.";
+                return null;
+              },
+            ),
+            SizedBox(height: 16.0),
             TextFormField(
               decoration: InputDecoration(
                 hintText: "E-mail",
@@ -46,19 +45,19 @@ class LoginScreen extends StatelessWidget {
                 return null;
               },
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: FlatButton(
-                onPressed: () {},
-                child: Text("Esqueci minha senha", textAlign: TextAlign.right),
-                padding: EdgeInsets.zero,
-              ),
+            SizedBox(height: 16.0),
+            TextFormField(
+              decoration: InputDecoration(hintText: "Endereço"),
+              validator: (text) {
+                if (text.isEmpty || text.length < 6) return "Endereço inválida";
+                return null;
+              },
             ),
             SizedBox(height: 16.0),
             SizedBox(
                 height: 44.0,
                 child: RaisedButton(
-                    child: Text("Entrar", style: TextStyle(fontSize: 18.0)),
+                    child: Text("Criar Conta", style: TextStyle(fontSize: 18.0)),
                     textColor: Colors.white,
                     color: Theme.of(context).primaryColor,
                     onPressed: () {
