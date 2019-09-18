@@ -1,5 +1,3 @@
 # Loja Virtual
 
-A new Flutter application.
-
-## Getting Started
+Aplicativo para venda de produtos Online
