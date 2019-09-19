@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,12 @@ class UserModel extends Model {
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseUser firebaseUser;
   Map<String, dynamic> userData = Map();
+
+  @override
+  void addListener(VoidCallback listener) {
+    super.addListener(listener);
+    _loadCurrentUser();
+  }
 
   void signUp(
       {@required Map<String, dynamic> userData,
@@ -34,13 +42,28 @@ class UserModel extends Model {
     });
   }
 
-  void signIn() async {
+  void signIn(
+      {@required String email,
+      @required String password,
+      @required VoidCallback onSuccess,
+      @required VoidCallback onFail}) async {
     isLoading = true;
     notifyListeners();
 
-    await Future.delayed(Duration(seconds: 3));
-    isLoading = false;
-    notifyListeners();
+    _auth
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((user) async {
+      firebaseUser = user;
+      await _loadCurrentUser();
+
+      onSuccess();
+      isLoading = false;
+      notifyListeners();
+    }).catchError((error) {
+      onFail();
+      isLoading = false;
+      notifyListeners();
+    });
   }
 
   void recoverPass() {}
@@ -62,5 +85,21 @@ class UserModel extends Model {
         .collection("users")
         .document(firebaseUser.uid)
         .setData(userData);
+  }
+
+  Future<Null> _loadCurrentUser() async {
+    if (firebaseUser == null) {
+      firebaseUser = await _auth.currentUser();
+    }
+    if (firebaseUser != null) {
+      if (userData["name"] == null) {
+        DocumentSnapshot docUser = await Firestore.instance
+            .collection("users")
+            .document(firebaseUser.uid)
+            .get();
+        userData = docUser.data;
+      }
+    }
+    notifyListeners();
   }
 }
