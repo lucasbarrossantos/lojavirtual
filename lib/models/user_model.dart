@@ -66,7 +66,9 @@ class UserModel extends Model {
     });
   }
 
-  void recoverPass() {}
+  void recoverPass({@required String email}) {
+    _auth.sendPasswordResetEmail(email: email);
+  }
 
   bool isLoggedIn() {
     return firebaseUser != null;

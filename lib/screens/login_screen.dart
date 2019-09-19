@@ -15,6 +15,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
 
+  bool _isEnabled = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   SizedBox(height: 16.0),
                   TextFormField(
+                    enabled: _isEnabled,
                     controller: _passController,
                     decoration: InputDecoration(hintText: "Senha"),
                     obscureText: true,
@@ -69,10 +72,28 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: FlatButton(
-                      onPressed: () {},
                       child: Text("Esqueci minha senha",
                           textAlign: TextAlign.right),
                       padding: EdgeInsets.zero,
+                      onPressed: () {
+                        if (_emailController.text.isEmpty) {
+                          setState(() {
+                            _isEnabled = false;
+                          });
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text("Insira seu e-mail para recuperação"),
+                            backgroundColor: Colors.redAccent,
+                            duration: Duration(seconds: 2),
+                          ));
+                        } else {
+                          model.recoverPass(email: _emailController.text);
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text("Confira seu e-mail"),
+                            backgroundColor: Theme.of(context).primaryColor,
+                            duration: Duration(seconds: 2),
+                          ));
+                        }
+                      },
                     ),
                   ),
                   SizedBox(height: 16.0),
@@ -80,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 44.0,
                       child: RaisedButton(
                           child:
-                              Text("Entrar", style: TextStyle(fontSize: 18.0)),
+                              Text(_isEnabled ? "Entrar" : "Enviar", style: TextStyle(fontSize: 18.0)),
                           textColor: Colors.white,
                           color: Theme.of(context).primaryColor,
                           onPressed: () {
