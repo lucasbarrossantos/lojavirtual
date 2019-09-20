@@ -1,0 +1,106 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:lojavirtual/datas/cart_product.dart';
+import 'package:lojavirtual/datas/product_data.dart';
+
+class CartTileProduct extends StatelessWidget {
+  var controller = new MoneyMaskedTextController(
+      decimalSeparator: ',', thousandSeparator: '.');
+  final CartProduct cartProduct;
+
+  CartTileProduct(this.cartProduct);
+
+  @override
+  Widget build(BuildContext context) {
+    Widget _buildContent() {
+      controller.updateValue(this.cartProduct.productData.price);
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(8.0),
+            width: 120.0,
+            child: Image.network(
+              cartProduct.productData.images[0],
+              fit: BoxFit.cover,
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    cartProduct.productData.title,
+                    style:
+                        TextStyle(fontWeight: FontWeight.w500, fontSize: 17.0),
+                  ),
+                  Text(
+                    "Tamanho: ${cartProduct.size}",
+                    style: TextStyle(fontWeight: FontWeight.w300),
+                  ),
+                  Text(
+                    "R\$ ${controller.text}",
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      IconButton(
+                          icon: Icon(Icons.remove),
+                          color: Theme.of(context).primaryColor,
+                          onPressed: cartProduct.quantity > 1 ? () {} : null),
+                      Text(cartProduct.quantity.toString()),
+                      IconButton(
+                          icon: Icon(Icons.add),
+                          color: Theme.of(context).primaryColor,
+                          onPressed: () {}),
+                      FlatButton(
+                        onPressed: () {},
+                        child: Text("Remover"),
+                        color: Colors.red[400],
+                        textColor: Colors.white,
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
+    return Card(
+        margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+        child: cartProduct.productData == null
+            ? FutureBuilder<DocumentSnapshot>(
+                future: Firestore.instance
+                    .collection("products")
+                    .document(cartProduct.category)
+                    .collection("items")
+                    .document(cartProduct.pid)
+                    .get(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    cartProduct.productData =
+                        ProductData.fromDocments(snapshot.data);
+                    return _buildContent();
+                  } else {
+                    return Container(
+                      height: 70.0,
+                      child: CircularProgressIndicator(),
+                      alignment: Alignment.center,
+                    );
+                  }
+                },
+              )
+            : _buildContent());
+  }
+}

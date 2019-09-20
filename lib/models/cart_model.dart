@@ -7,6 +7,8 @@ import 'package:scoped_model/scoped_model.dart';
 class CartModel extends Model {
   UserModel user;
 
+  bool isIsloading = false;
+
   static CartModel of(BuildContext context) =>
       ScopedModel.of<CartModel>(context);
 
