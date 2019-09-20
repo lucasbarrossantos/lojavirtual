@@ -1,7 +1,12 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:lojavirtual/datas/cart_product.dart';
 import 'package:lojavirtual/datas/product_data.dart';
+import 'package:lojavirtual/models/cart_model.dart';
+import 'package:lojavirtual/models/user_model.dart';
+import 'package:lojavirtual/screens/cart_screen.dart';
+import 'package:lojavirtual/screens/login_screen.dart';
 
 class ProductScreen extends StatefulWidget {
   final ProductData product;
@@ -25,6 +30,8 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     final Color primaryColor = Theme.of(context).primaryColor;
+    final UserModel userModel = UserModel.of(context);
+    final CartModel cartModel = CartModel.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -104,11 +111,31 @@ class _ProductScreenState extends State<ProductScreen> {
                 SizedBox(
                   height: 44.0,
                   child: RaisedButton(
-                    onPressed: size != null ? () {} : null,
-                    child: Text("Adicionar ao carrinho",
+                    child: Text(
+                        userModel.isLoggedIn()
+                            ? "Adicionar ao carrinho"
+                            : "Entre para comprar",
                         style: TextStyle(fontSize: 18.0)),
                     color: primaryColor,
                     textColor: Colors.white,
+                    onPressed: size != null
+                        ? () {
+                            if (userModel.isLoggedIn()) {
+                              CartProduct cartProduct = CartProduct();
+                              cartProduct.size = size;
+                              cartProduct.quantity = 1;
+                              cartProduct.pid = product.id;
+                              cartProduct.category = product.category;
+
+                              cartModel.addCartItem(cartProduct);
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => CartScreen()));
+                            } else {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => LoginScreen()));
+                            }
+                          }
+                        : null,
                   ),
                 ),
                 SizedBox(height: 16.0),
