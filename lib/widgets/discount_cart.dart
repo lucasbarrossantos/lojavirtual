@@ -15,15 +15,18 @@ class DiscountCart extends StatelessWidget {
           style:
               TextStyle(fontWeight: FontWeight.w500, color: Colors.grey[700]),
         ),
-        leading: Icon(Icons.card_giftcard),
-        trailing: Icon(Icons.add),
+        leading:
+            Icon(Icons.card_giftcard, color: Theme.of(context).primaryColor),
+        trailing: Icon(Icons.add, color: Theme.of(context).primaryColor),
         children: <Widget>[
           Padding(
             padding: EdgeInsets.all(8.0),
             child: TextFormField(
               initialValue: CartModel.of(context).couponCode ?? "",
               decoration: InputDecoration(
-                  border: OutlineInputBorder(), hintText: "Digite seu cupom"),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  hintText: "Digite seu cupom"),
               onFieldSubmitted: (text) {
                 Firestore.instance
                     .collection("coupons")
