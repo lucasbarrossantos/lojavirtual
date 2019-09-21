@@ -20,7 +20,7 @@ class CartScreen extends StatelessWidget {
             alignment: Alignment.center,
             padding: EdgeInsets.only(right: 8.0),
             child: ScopedModelDescendant<CartModel>(
-                builder: (context, chiel, model) {
+                builder: (context, child, model) {
               int p = model.products.length;
               return Text("${p ?? 0} ${p == 1 ? "ITEM" : "ITENS"}",
                   style: TextStyle(fontSize: 17.0));
