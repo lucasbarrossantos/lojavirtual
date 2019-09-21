@@ -4,7 +4,7 @@ import 'package:lojavirtual/datas/product_data.dart';
 import 'package:lojavirtual/screens/product_screen.dart';
 
 class ProductTile extends StatelessWidget {
-  var controller = new MoneyMaskedTextController(
+  final controller = new MoneyMaskedTextController(
       decimalSeparator: ',', thousandSeparator: '.');
   final String type;
   final ProductData product;

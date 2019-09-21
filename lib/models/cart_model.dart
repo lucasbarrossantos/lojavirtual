@@ -75,7 +75,7 @@ class CartModel extends Model {
     this.discountPercentage = discountPercentage;
   }
 
-  void updatePrices(){
+  void updatePrices() {
     notifyListeners();
   }
 
