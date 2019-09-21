@@ -59,11 +59,7 @@ class CartModel extends Model {
   }
 
   void _loadCartItems() async {
-    QuerySnapshot query = await Firestore.instance
-        .collection("users")
-        .document(user.firebaseUser.uid)
-        .collection("cart")
-        .getDocuments();
+    QuerySnapshot query = await getCartsByUsers();
 
     products =
         query.documents.map((doc) => CartProduct.fromDocument(doc)).toList();
@@ -94,6 +90,69 @@ class CartModel extends Model {
 
   double getShipPrice() {
     return 10.0;
+  }
+
+  Future<String> finishOrder() async {
+    if (products.length == 0) return null;
+
+    isIsloading = true;
+    notifyListeners();
+
+    double productsPrices = getProductsPrice();
+    double shipPrice = getShipPrice();
+    double discount = getDiscount();
+
+    DocumentReference referenceOrder = await _createOrder(shipPrice, productsPrices, discount);
+    await _setIdOrder(referenceOrder);
+    QuerySnapshot query = await getCartsByUsers();
+
+    _removeAllCartsFromCurrentUser(query);
+
+    products.clear();
+    couponCode = null;
+    discountPercentage = 0;
+    isIsloading = false;
+    notifyListeners();
+
+    return referenceOrder.documentID;
+  }
+
+  void _removeAllCartsFromCurrentUser(QuerySnapshot query) {
+    query.documents.forEach((doc) {
+      doc.reference.delete();
+    });
+  }
+
+  Future<QuerySnapshot> getCartsByUsers() async {
+    QuerySnapshot query = await Firestore.instance
+        .collection("users")
+        .document(user.firebaseUser.uid)
+        .collection("cart")
+        .getDocuments();
+    return query;
+  }
+
+  Future _setIdOrder(DocumentReference referenceOrder) async {
+    await Firestore.instance
+        .collection("users")
+        .document(user.firebaseUser.uid)
+        .collection("orders")
+        .document(referenceOrder.documentID)
+        .setData({"orderId": referenceOrder.documentID});
+  }
+
+  Future<DocumentReference> _createOrder(double shipPrice, double productsPrices, double discount) async {
+    DocumentReference referenceOrder =
+        await Firestore.instance.collection("orders").add({
+      "clientId": user.firebaseUser.uid,
+      "products": products.map((cartProduct) => cartProduct.toMap()).toList(),
+      "shipPrice": shipPrice,
+      "productsPrices": productsPrices,
+      "discount": discount,
+      "totalPrice": productsPrices - discount + shipPrice,
+      "status": 1
+    });
+    return referenceOrder;
   }
 
   void updateCartProduct(CartProduct cartProduct) {

@@ -47,9 +47,7 @@ class CartPrice extends StatelessWidget {
                   children: <Widget>[
                     Text("Desconto"),
                     Text(
-                        "R\$ ${discount > 0 ? "- ${parseValue(model.getDiscount(), controller).text}"
-                            :
-                        "${parseValue(model.getDiscount(), controller).text}"}"),
+                        "R\$ ${discount > 0 ? "- ${parseValue(model.getDiscount(), controller).text}" : "${parseValue(model.getDiscount(), controller).text}"}"),
                   ]),
               Divider(color: Theme.of(context).primaryColor),
               Row(
