@@ -6,7 +6,7 @@ import 'package:lojavirtual/datas/product_data.dart';
 import 'package:lojavirtual/models/cart_model.dart';
 
 class CartTileProduct extends StatelessWidget {
-  var controller = new MoneyMaskedTextController(
+  final controller = new MoneyMaskedTextController(
       decimalSeparator: ',', thousandSeparator: '.');
   final CartProduct cartProduct;
 
@@ -15,6 +15,7 @@ class CartTileProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget _buildContent() {
+      CartModel.of(context).updatePrices();
       controller.updateValue(this.cartProduct.productData.price);
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -56,9 +57,11 @@ class CartTileProduct extends StatelessWidget {
                       IconButton(
                           icon: Icon(Icons.remove),
                           color: Theme.of(context).primaryColor,
-                          onPressed: cartProduct.quantity > 1 ? () {
-                            CartModel.of(context).decProduct(cartProduct);
-                          } : null),
+                          onPressed: cartProduct.quantity > 1
+                              ? () {
+                                  CartModel.of(context).decProduct(cartProduct);
+                                }
+                              : null),
                       Text(cartProduct.quantity.toString()),
                       IconButton(
                           icon: Icon(Icons.add),
