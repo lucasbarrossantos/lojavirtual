@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:lojavirtual/datas/cart_product.dart';
 import 'package:lojavirtual/datas/product_data.dart';
+import 'package:lojavirtual/models/cart_model.dart';
 
 class CartTileProduct extends StatelessWidget {
   var controller = new MoneyMaskedTextController(
@@ -55,14 +56,20 @@ class CartTileProduct extends StatelessWidget {
                       IconButton(
                           icon: Icon(Icons.remove),
                           color: Theme.of(context).primaryColor,
-                          onPressed: cartProduct.quantity > 1 ? () {} : null),
+                          onPressed: cartProduct.quantity > 1 ? () {
+                            CartModel.of(context).decProduct(cartProduct);
+                          } : null),
                       Text(cartProduct.quantity.toString()),
                       IconButton(
                           icon: Icon(Icons.add),
                           color: Theme.of(context).primaryColor,
-                          onPressed: () {}),
+                          onPressed: () {
+                            CartModel.of(context).incProduct(cartProduct);
+                          }),
                       FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          CartModel.of(context).removeCartItem(cartProduct);
+                        },
                         child: Text("Remover"),
                         color: Colors.red[400],
                         textColor: Colors.white,
