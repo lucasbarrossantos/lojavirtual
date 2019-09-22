@@ -12,6 +12,8 @@ Aplicativo para venda de produtos Online
 ![Alt Text](/lib/screeenshot/category_screen.jpeg)
 ## Menu lateral
 ![Alt Text](/lib/screeenshot/custom_drawer.jpeg)
+## Meus pedidos 
+![Alt Text](/lib/screeenshot/orders_tab.jpeg)
 ## Login
 ![Alt Text](/lib/screeenshot/login.jpeg)
 ## Lojas 
