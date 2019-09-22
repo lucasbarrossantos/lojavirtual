@@ -14,11 +14,11 @@ Aplicativo para venda de produtos Online
 ![Alt Text](/lib/screeenshot/custom_drawer.jpeg)
 ## Meus pedidos 
 ![Alt Text](/lib/screeenshot/orders_tab.jpeg)
-## Login
-![Alt Text](/lib/screeenshot/login.jpeg)
 ## Lojas 
 ![Alt Text](/lib/screeenshot/place_screen.jpeg)
 ## Tela de Produtos por Categoria
 ![Alt Text](/lib/screeenshot/products_tab.jpeg)
+## Login
+![Alt Text](/lib/screeenshot/login.jpeg)
 ## Criar nova Conta 
 ![Alt Text](/lib/screeenshot/signup_screen.jpeg)
