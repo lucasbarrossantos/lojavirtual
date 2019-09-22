@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
             return ScopedModel<CartModel>(
               model: CartModel(model),
               child: MaterialApp(
-                title: "Flutter´s Glothing",
+                title: "Shopping Outfits LBS",
                 theme: ThemeData(
                     primarySwatch: Colors.blue,
                     primaryColor: Color.fromARGB(255, 4, 125, 141)),
