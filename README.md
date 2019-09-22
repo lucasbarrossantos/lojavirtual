@@ -5,7 +5,7 @@ Aplicativo para venda de produtos Online
 # Screen Shots
 
 ## Tela inicial
-![smiley](/lib/screeenshot/home_screen.jpeg){:height="600px" width="300px"}
+![thumbnail](/lib/screeenshot/home_screen.jpeg)
 ## Tela do Carrinho
 ![Alt Text](/lib/screeenshot/cart_screen.jpeg)
 ## Tela da Categoria dos Produtos
