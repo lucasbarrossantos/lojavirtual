@@ -8,7 +8,7 @@ Aplicativo para venda de produtos Online
 ![Alt Text](/lib/screeenshot/home_screen.jpeg)
 ## Tela do Carrinho
 ![Alt Text](/lib/screeenshot/cart_screen.jpeg)
-## Tela da Categoria do Produtos
+## Tela da Categoria dos Produtos
 ![Alt Text](/lib/screeenshot/category_screen.jpeg)
 ## Menu lateral
 ![Alt Text](/lib/screeenshot/custom_drawer.jpeg)
@@ -18,5 +18,5 @@ Aplicativo para venda de produtos Online
 ![Alt Text](/lib/screeenshot/place_screen.jpeg)
 ## Tela de Produtos por Categoria
 ![Alt Text](/lib/screeenshot/products_tab.jpeg)
-## Entrar, Recuperar Senha ou Criar nova Conta 
+## Criar nova Conta 
 ![Alt Text](/lib/screeenshot/signup_screen.jpeg)
