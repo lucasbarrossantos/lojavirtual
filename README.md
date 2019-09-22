@@ -4,7 +4,19 @@ Aplicativo para venda de produtos Online
 
 # Screen Shots
 
-![Alt Text](/lib/screeenshot/home_screen.jpeg) ![Alt Text](/lib/screeenshot/cart_screen.jpeg)
-![Alt Text](/lib/screeenshot/category_screen.jpeg) ![Alt Text](/lib/screeenshot/custom_drawer.jpeg)
-![Alt Text](/lib/screeenshot/login.jpeg) ![Alt Text](/lib/screeenshot/place_screen.jpeg)
-![Alt Text](/lib/screeenshot/products_tab.jpeg) ![Alt Text](/lib/screeenshot/signup_screen.jpeg)
+## Tela inicial
+![Alt Text](/lib/screeenshot/home_screen.jpeg)
+## Tela do Carrinho
+![Alt Text](/lib/screeenshot/cart_screen.jpeg)
+## Tela da Categoria do Produtos
+![Alt Text](/lib/screeenshot/category_screen.jpeg)
+## Menu lateral
+![Alt Text](/lib/screeenshot/custom_drawer.jpeg)
+## Login
+![Alt Text](/lib/screeenshot/login.jpeg)
+## Lojas 
+![Alt Text](/lib/screeenshot/place_screen.jpeg)
+## Tela de Produtos por Categoria
+![Alt Text](/lib/screeenshot/products_tab.jpeg)
+## Entrar, Recuperar Senha ou Criar nova Conta 
+![Alt Text](/lib/screeenshot/signup_screen.jpeg)
